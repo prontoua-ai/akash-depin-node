@@ -1,33 +1,57 @@
 version: "2.0"
 
 services:
-  ai-model:
-    image: ollama/ollama:latest
+  ollama:
+    image: ollama/ollama:0.13.4
     expose:
       - port: 11434
         as: 11434
         to:
           - global: true
-
+    command:
+      - sh
+      - "-c"
+      - |
+        /bin/sh
+        -c
+        ollama serve &
+        while ! ollama pull ${MODEL}; do
+        echo "Waiting for ollama pull to succeed..."
+        sleep 2.5
+        done
+        ollama list
+        pkill ollama
+        ollama serve
+    args:
+      - ""
+    env:
+      - MODEL=llama3.1:8b
 profiles:
   compute:
-    ai-service:
+    ollama:
       resources:
         cpu:
-          units: 4
+          units: 8
         memory:
-          size: 16Gi
+          size: 28Gi
         storage:
-          size: 50Gi
+          - size: 100Gi
         gpu:
           units: 1
           attributes:
             vendor:
               nvidia:
                 - model: rtx3090
-
+                  ram: 24Gi
+                  interface: pcie
+  placement:
+    akash:
+      pricing:
+        ollama:
+          denom: uact
+          amount: 10000
 deployment:
-  ai-model:
-    ai-service:
-      profile: ai-service
+  ollama:
+    akash:
+      profile: ollama
       count: 1
