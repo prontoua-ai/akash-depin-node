@@ -11,7 +11,7 @@ We operate high-performance, energy-resilient bare-metal GPU/CPU nodes within th
 
 ## Tech Stack
 * **Orchestration:** Kubernetes (K8s), Docker
-* **OS:** Ubuntu Server 22.04 / 24.04 LTS
+* **OS:** Ubuntu Server 24.04 LTS
 * **Network Protocol:** Akash Network (Cosmos SDK)
 
 ## Repository Structure
