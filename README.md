@@ -1,4 +1,3 @@
-# akash-depin-node
 # Sovereign Compute Ukraine - Infrastructure Configuration
 
 This repository contains open-source infrastructure configurations, Kubernetes manifests, and deployment scripts for the **Sovereign Compute Ukraine** DePIN project.
