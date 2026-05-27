@@ -1,0 +1,15 @@
+# Use your email and domain
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-ingress
+  namespace: akash-gateway
+spec:
+  secretName: wildcard-ingress-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: '*.pronto-ai.pp.ua'
+  dnsNames:
+  - '*.pronto-ai.pp.ua'
+  - '*.ingress.pronto-ai.pp.ua'
