@@ -1,0 +1,21 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: prontoua2@gmail.com  # Replace with your email
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-issuer-account-key
+    solvers:
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            key: api-token
+            name: cloudflare-api-token-secret
+          email: prontoua2@gmail.com  # Replace with your email
+      selector:
+        dnsZones:
+          - 'pronto-ai.pp.ua'  # Replace with your domen
+          - 'ingress.pronto-ai.pp.ua'  # Replace with your domen
